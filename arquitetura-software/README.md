@@ -107,3 +107,17 @@ Exemplo chocante:
 - Software precisa acompanhar a evolução do negócio.
 - Quanto mais tempo o software fica no ar, mais retorno ele gera.
 
+### Pilares da arquitetura de Software
+
+- Estruturação: Como tudo vai estar estruturado.
+    - Fácil evolução, componentização para atender os objetivos do negócio.
+- Componentização
+- Relacionamento entre sistemas.
+- Governança
+    - Criar documentações claras de como o desenvolvimento funciona, exemplo:
+        - Template de PRs
+        - Linguagens utilizadas
+        - Organização de classes
+        - Etc...
+    - Sem isso o sistema fica dependente demais de pessoas especificas e assim gerando problemas caso elas saiam da empresa.
+
