@@ -152,3 +152,48 @@ Exemplo chocante:
 
 
 Como levantar esses requisitos todos? Planilha e um monte de pergunta para as áreas da empresa.
+
+
+## Características arquiteturais
+
+
+Todo sistema possui de uma forma ou de outra essas caracteríticas arquiteturais.
+- Operacionais
+- Estruturais
+- Cross-Cutting
+
+Geralmente são requisitos não funcionais, ficam ao redor das regras de negócio.
+
+Sugestão de livro: **Fundamentos de Arquitetura de software.**
+
+
+### Características operacionais
+
+- Disponibilidade
+    - Qual os níveis de SLA, SLO ?
+- Recuperação de desastres?
+    - Como vou fazer para recuperar quando meu sistema estiver fora do ar?
+    - Como evitar que o mesmo problema aconteça novamente?
+    - E se uma região da AWS cai?
+    - O quanto to disposto a pagar para ter um servidor multi região?
+- Performance
+    - Latencia
+    - Throughput: Capacidade de receber requisições.
+        - Projetar um sistema de 50000 mil requisições por segundo é diferente de projetar um para 50 requisições por segundo.
+- Recuperação (Backup)
+    - Qual a última vez que testei o backup que testei?
+    - Criar políticas para testar backup.
+    - Salvar backups em redes diferentes.
+- Confiabilidade e segurança: Sistemas de missão crítica.
+    - Bruteforce para fazer login
+    - Menino mau fazendo bot para registrar milhares de contas fake. Recaptcha serve?
+    - Que que eu faço se algum bot começar a forçar um endpoint da minha aplicação?
+- Robustes 
+    - Ele ta numa estrutura robusta o suficiente para que ele possa escalar de precisar?
+    - A cloud não é infinita.
+    - Você tem servidores AWS na Virginia, dai ele cai, você tenta mandar para Virginia do norte, mas não tem quantidade o suficiente de IPs lá. Como faz?
+- Escalabilidade
+    - Verticalmente: Aumentar recursos do servidor.
+    - Horizontalmente: Aumentar número de servidores.
+        - Trabalhar de forma stateless.
+        - Seguir os 12 fatores 
