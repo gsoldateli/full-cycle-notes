@@ -121,3 +121,34 @@ Exemplo chocante:
         - Etc...
     - Sem isso o sistema fica dependente demais de pessoas especificas e assim gerando problemas caso elas saiam da empresa.
 
+### Requisitos Arquiteturais
+
+- Performance
+    - Exemplo:
+        - As requisições não podem passar de 500ms.
+        - Suportar um throughput de 50 transações por segundo.
+- Armazenamento de dados
+    - Exemplo:
+        - Se um servidor ta na europa, os servidores de arquivos tem que estar na europa.
+- Escalabilidade
+    - Horizontalmente ou Verticalmente
+    - Load balancer vai funcionar como?
+- Segurança
+    - Exemplo:
+        - Se for um ecommerce, se tem transações de cartão de crédito, tem que ter certificações PCI.
+        - Comunicação entre micro serviçoes tem que ser criptografada.
+- Legal
+    - Exemplo:
+        - LGPD
+- Auditoria
+    - Exemplo:
+        - Logs
+            - Onde vão ficar armazenados?
+            - Quanto tempo vão ficar armazenados?
+- Marketing
+    - Exemplo:
+        - Como a aplicação vai trackear de onde vem cada acesso?
+        - Verificar tipos de dispositivo.
+
+
+Como levantar esses requisitos todos? Planilha e um monte de pergunta para as áreas da empresa.
