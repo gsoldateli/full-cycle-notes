@@ -305,4 +305,37 @@ Pontos que vão cruzar a aplicação de forma geral, no dia-dia temos que levar 
     - Como a API ta documentada? Tem README.md?
     - Quem é o cliente da minha aplicação? É outra aplicação? 
     - Como vou dar a melhor forma para essas pessoas / aplicações interagirem com a minha API ?
-- 
+
+
+## Perforamance
+
+
+### Perspectivas para arquitetar software de qualidade
+
+- Performance
+- Escalabilidade
+- Resiliência: Planos B's para quando as coisas dão errado.
+
+
+### Métricas para medir a performance.
+
+- O que é performance?
+    - É o desempenho que um software possui para completar um determinado workload.
+        - São necessários dados para saber disso.
+        - Você vai comparar a performance contra o próprio software, não contra o vizinho.
+- Unidades de medida para avaliarmos a performance de um software:
+    - Latência ou "Response time".
+    - Throughput: Mostra o quanto de requisição o software pode aguentar.
+- Ter um **software performatico** é **diferente de** ter um **software escalável**. 
+
+
+Melhorando a performance do software:
+
+- Diminuir latência.
+    - Normalmente medida em milliseconds.
+    - Se medida em segundos é porque a aplicação já ta lenta.
+    - É afetada pelo tempo de processamento da aplicação, rede e chamadas externas.
+- Aumentando o throughput.
+    - Aumentar capacidade de lidar com mais quantidade de requisições
+    - Diretamente ligado a latência.
+    
