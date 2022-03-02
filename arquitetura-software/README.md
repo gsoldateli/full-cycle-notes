@@ -259,3 +259,50 @@ Buscar que o software funcione de uma maneira cada vez mais flexível.
     - Centralização de logs
     - Padrão de geração de logs.
     - Criar métricas.
+
+
+### Características Cross-Cutting
+
+Pontos que vão cruzar a aplicação de forma geral, no dia-dia temos que levar em consideração.
+
+- Acessibilidade
+    - Ter bem claro quem é o público que vai acessar a minha aplicação.
+    - Tá fácil de pessoas com deficiencias acessarem a minha aplicação?
+- Processo de retenção e recuperação de dados. (quanto tempo serão mantidos?)
+    - Apache Kafka permite definir tempo de retenção de tópicos.
+    - Se tem dados que não são mais utilizados diariamente, da pra compactar e colocar em um storage mais barato.
+- Autenticação de Autorização
+    - Provedor de identidades, eg:. Keycloack
+        - Como outros serviços vão acesar ele?
+    - API Gateway:
+        - É um mecanismo que fica na borda da aplicação, nele da para criar políticas de autenticação, timeout, quantidade de requisições, etc...
+        - Muitos sistemas não utilizam mais autenticação pois ela ocorre na API Gateway.
+        - O sistema já entende que se a requisição está chegando, é porque o usuário já está logado.
+- Legal
+    - Quanto tempo os dados tem que estar mantidos?
+    - Onde vão estar mantidos?
+    - Tudo o que acontecer com a aplicação tem que estar em conformidade com o que a lei do país diz.
+- Privacidade
+    - Como consigo minimizar problemas em relação a dados de usuários vazarem.
+    - Desenvolvedor gosta de testar com dados de produção.
+        - Quer coisa mais simples pra vazar dados?
+    - Muitas empresas separam dados sensíveis em outros bancos de dados.
+- Segurança de ponta a ponta
+    - Já começa a pensar na segurança da aplicação desde a borda. Bem antes do usuário cair no servidor.
+        - Trabalhe com web firewall
+            - Ajuda bastante com testes que o OWASP faz.
+        - Crie regras e mecanismos que identifiquem robos.
+    - Utilize ao máximo tudo que é padrão aberto.
+        - Não inventa uma criptografia própria.
+        - Não tente criar sua rotina de login.
+    - Mantenha banco de dados em servidor separado.
+    - Tenha backups em rede separada.
+- Usabilidade
+    - Usabilidade não é só no frontend.
+    - Como está organizada a sua API?
+    - Está trabalhando com padrões claros tipo Open API?
+    - Tem contrato claros que posso disponibilizar para outras pessoas?
+    - Como a API ta documentada? Tem README.md?
+    - Quem é o cliente da minha aplicação? É outra aplicação? 
+    - Como vou dar a melhor forma para essas pessoas / aplicações interagirem com a minha API ?
+- 
