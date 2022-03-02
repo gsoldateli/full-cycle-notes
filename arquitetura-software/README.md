@@ -167,7 +167,7 @@ Geralmente são requisitos não funcionais, ficam ao redor das regras de negóci
 Sugestão de livro: **Fundamentos de Arquitetura de software.**
 
 
-### Características operacionais
+### Características Operacionais
 
 - Disponibilidade
     - Qual os níveis de SLA, SLO ?
@@ -197,3 +197,65 @@ Sugestão de livro: **Fundamentos de Arquitetura de software.**
     - Horizontalmente: Aumentar número de servidores.
         - Trabalhar de forma stateless.
         - Seguir os 12 fatores 
+
+
+### Características Estruturais
+
+Ligadas ao processo de desenvolvimento e como vou desenvolver a aplicação.
+
+Buscar que o software funcione de uma maneira cada vez mais flexível.
+
+- Configurável
+    - Botar configuração com banco de dados
+        - Variáveis de ambiente com a conexão.
+    - Tenho que alterar o endereço do gateway de pagamento. E agora? Ta fácil para mudar?
+    - To usando vários gateways de pagamento, se um falhar quero utilizar outra.  Tá fácil de trocar?
+    - Como saber se ela é configurável?
+        - Upa a aplicação em staging e produção, se tiver que mudar código fonte é pq ela não é configurável.
+- Extensibilidade: Ela tem que poder crescer de forma que novas funcionalidades possam ser plugadas nela.
+    - Imagina que tua aplicação usa gateway de pagamento X e dai teu chefe diz para usar gateway Y.
+        - Se tu tiver que sair alterando pontos estruturais da aplicação para inserir uma nova gateway, provavelmente projetou errado a aplicação.
+        - A aplicação não deve ficar refem de vendors.
+            - Camadas anticorrupção.
+    - Se ta dificil de adicionar novas features, módulos, tem que repensar como ta estruturada a aplicação.
+- Fácil instalação
+    - Padronização do ambiente.
+        - Containers, docker etc...
+    - Dependências
+        - Meu app vai gerenciar os indices do elastic search ou vão ser criados manualmente?
+        - Tópico do Kakfa, app cria ou crio manualmente?
+        - RabbitMQ app cria fila por ela mesma?
+- Reuso de componentes
+    - Quando falamos de sistemas distribuidos, muitas vezes equipes diferentes implementam multiplas vezes as mesmas coisas, por exemplo validações. Será que não vale a pena ter uma equipe responsável por cuidar de bibliotecas que podem ser utilizadas pelos times?
+- Internacionalização
+    - Backend 
+        - Já tem formas muito maduras de lidar com isso no lado do servidor.
+        - Moedas? Qual a moeda base? Como vai funcionar políticas de preço? 
+
+    - Frontend
+        - No frontend você já tem um design de uma forma, ao trocar de linguagem, começa a quebrar toda a UI.
+- Fácil manutenção
+    - Não é simples.
+    - Quanto mais senior, mais você percebe quão dificil é fazer uma solução complexa que você fez, fique simples.
+    - Aprenda:
+        - SOLID de verdade.
+        - A pensar muito bem as camadas do seu sistema.
+        - Como usar Adaptadores e Interfaces.
+    - Atividades de manutenção
+        - Correção de bugs
+        - Adicionar novas features
+        - Perguntas pra saber se tá okay
+            - Tá fácil corrigir bugs?
+            - Tá fácil implementar novas features?
+            - Tem testes?
+                - Não? não vai ter fácil manutenção.
+- Portabilidade (diversos bancos de dados)
+    - Tá fácil mudar banco de dados?
+    - Sistemas de observalidade Elastic Search pra um DataDog ?
+    - Vale a pena usar um Open Telemetry que serve de adapter pra várias dependencias de observalidade?
+- Fácil suporte (logs, debugging)
+    - No momento de operação da aplicação, tem que ser fácil de ver o que está acontecendo em produção.
+    - Fazer benchmarks
+    - Centralização de logs
+    - Padrão de geração de logs.
+    - Criar métricas.
