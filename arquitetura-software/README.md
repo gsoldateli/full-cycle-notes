@@ -338,4 +338,28 @@ Melhorando a performance do software:
 - Aumentando o throughput.
     - Aumentar capacidade de lidar com mais quantidade de requisições
     - Diretamente ligado a latência.
-    
+
+### Checklist para aumento de performance
+
+Principais razões para baixa performance
+
+- Processamento ineficiente
+- Recursos computacionais limitados
+- Trabalhar de forma bloqueante
+- Acesso serial aos recursos
+    - Por exemplo fazer requisição no FE com setTimeout para um endpoint específico.
+
+Principais formas para aumentar a eficiência
+
+- Escala de capacidade computacional (CPU, Disco, Memória, Rede).
+- Lógica por trás do software (Algoritimos, queries, overhead de frameworks).
+- Concorrência e paralelismo.
+    - Trabalhe com uma linguagem de programação que permita trabalhar com isso.
+        - Em Go, por exemplo, para cada acesso em um webserver Go, uma thread é criada.
+- Banco de dados (tipos de bancos, schema)
+    - Será que ta modelado corretamente?
+    - Será que to usando as melhores estratégias ?
+    - Será que tem indice?
+    - To dando explain nas minhas queries?
+    - Tenho ferramenta de APM que mostra a query que ta matando o banco?
+- Caching 
