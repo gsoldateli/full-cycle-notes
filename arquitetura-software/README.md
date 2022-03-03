@@ -363,3 +363,110 @@ Principais formas para aumentar a eficiência
     - To dando explain nas minhas queries?
     - Tenho ferramenta de APM que mostra a query que ta matando o banco?
 - Caching 
+
+### Escala concorrência e paralelismo
+
+![Escala vertical vs horizontal](https://i.imgur.com/GGTOcw3.png)
+
+**Escala vertical:** Toda vez que aumentar a capacidade da aplicação, aumenta a capacidade computacional do servidor.
+
+Imagine um webserver que demora 50ms para responder uma requisição.
+
+10ms --> 10ms --> 10ms -> 10ms = 40ms para responder as 4 requisições.
+
+**Escala horizontal:** Toda vez que aumentar a capacidade da aplicação, aumenta o numero de servidores com load balancer na frente.
+
+Imagine um webserver que demora 10ms para responder as mesmas 4 requisições.
+
+```
+Ele vai ter 4 threads:
+--------
+ - 10ms
+ - 10ms
+ - 10ms
+ - 10ms
+--------
+10ms no total
+```
+
+**Qual a diferença entre concorrência e paralelismo?**
+
+"**Concorrência** é sobre lidar com muitas coisas ao mesmo tempo. **Paralelismo** é fazer muitas coisas ao mesmo tempo." Rob Pike
+
+O paralelismo é o motivo pelo qual NodeJS / Php Swool / Go são tão famosos.
+
+
+
+### Caching
+
+Guarda na memória coisas que já foram processadas antes.
+
+- **Cache na borda === Edge computing:** O usuário nem bate na aplicação, ele é respondido direto por outro servidor que armazenou o cache.
+    - Muito mais rápido.
+    - Distribuido.
+    - Custo baixo.
+- Dados estáticos
+    - Imagens
+    - CSS
+    - bundles js
+- Páginas web
+    - Estáticas
+    - Dinamicas:
+        - 1 - Processa (busca no banco etc..)
+        - 2 - Salva output no cache
+        - 3 - Faz tudo novamente em algum periodo de tempo.
+- Funções internas
+    - Evita processamento de algorítimos pesados.
+    - Reduz acesso a banco de dados.
+- Objetos
+    - Objeto do Doctrine por exemplo.
+
+Tipos de cache:
+
+- **Exclusivo:** Local na máquina.
+    - Baixa latência.
+    - Duplicado entre nós.
+    - Problemas relacionados a sessões.
+- **Compartilhado:** Fica em um servidor centralizado. 
+    - Maior latência.
+    - Não há duplicação.
+    - Sessões compartilhadas.
+    - Banco de dados externo
+        - MySQL
+        - Redis
+        - Memcache
+
+
+### Caching VS. Edge Computing
+
+**Edge computing**
+
+Fornece serviços que podem processar dados do usuário sem bater no servidor da aplicação.
+
+- Deixa os dados do usuário mais perto dele geograficamente.
+- Cada vez mais em evidência.
+- Hoje em dia a internet não vai mais funcionar se não existir Edge Computing.
+- Imagina a netflix, imagina o trafego todo.
+    - Se tiver um servidor central, derruba ele.
+    - Isso derruba até a internet, inunda os backbones todos.
+- Arquivos estáticos pode deixar na Edge sem nem pensar.
+    - CSS
+    - HTML
+    - Imagens
+    - JS
+- CDN - Content Delivery Network.
+    - Malha de servidores espalhados pelo mundo.
+    - Todo conteúdo se replica entre os servidores.
+    - Toda vez que alguém quiser acessar um conteúdo, acessa no servidor mais próximo.
+- Cloudflare workers
+    - Plataforma de Edge computing
+    - Workers permitem que sejam feitos deploys de aplicações JS. Usando um minicontainer de V8.
+- Vercel
+
+**Exemplo de funcionamento Akamai:** 
+
+Usuário do meu sistema requisita endpoint ---> AKAMAI ---> Baixa conteúdo do servidor --> Gera Midgrass --> Manda para os parceiros.
+
+Eu pago uma taxa de transferência do servidor mais próximo do meu usuário.
+
+
