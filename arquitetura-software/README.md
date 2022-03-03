@@ -369,6 +369,8 @@ Principais formas para aumentar a eficiência
 ![Escala vertical vs horizontal](https://i.imgur.com/GGTOcw3.png)
 
 **Escala vertical:** Toda vez que aumentar a capacidade da aplicação, aumenta a capacidade computacional do servidor.
+    - O limite é o hardware.
+    - Todos os ovos numa cesta só, caiu servidor, caiu tudo.
 
 Imagine um webserver que demora 50ms para responder uma requisição.
 
@@ -468,5 +470,18 @@ Fornece serviços que podem processar dados do usuário sem bater no servidor da
 Usuário do meu sistema requisita endpoint ---> AKAMAI ---> Baixa conteúdo do servidor --> Gera Midgrass --> Manda para os parceiros.
 
 Eu pago uma taxa de transferência do servidor mais próximo do meu usuário.
+
+
+## Escalabilidade
+
+"É a capacidade de sistemas suportarem o aumento (ou redução) dos workloads incrementando (ou reduzindo) o custo em menor ou igual proporção." - Elemar.
+
+### Escalabilidade VS Performance.
+
+- Performance visa:
+    - Reduzir latência
+    - Aumentar throughput.
+- Escalabilidade visa:
+    - Possibilitar aumentar/diminuir o throughput adicionando / removendo capacidade computacional.
 
 
