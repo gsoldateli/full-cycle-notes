@@ -533,3 +533,101 @@ Soluções populares de Proxy Reverso
 - HAProxy (HA = High Availability)
 - Traefik
 
+## Resiliencia
+
+Conjunto de estratégias adotadas intencionalmente para **adaptação** de um sistema quando uma falha ocorre.
+
+Ter estratégias de resiliencia nos possibilita minimizar o risco de perda de dados e transações importantes para o negócio.
+
+### Quais as estratégias?
+
+- Proteger e ser protegido
+    - Hoje é muito comum trabalhar com microsserviços.
+        - Proteger a nossa aplicação e a aplicação dos serviços.
+        - Um sistema não pode ser egoísta ao ponto de realizar mais requisições em um sistema que está falhando.
+    - Um sistema lento no ar é muitas vezes pior que um sistema lento no ar. (Dominio).
+
+- Health Check
+    - Verificar saúde do servidor que vai ser requisicionados.
+    - Sem sinais vitais, não consigo saber a saúde.
+    - Ter mecanismo que periodicamente roda health check.
+        - Se estiver muito pesado, outros serviços mandam menos requisições. (Self-healing)
+    - Health check de qualidade
+        - Média do tempo das últimas requisições
+        - Tempo de consulta no banco.
+        - Quais métricas realmente representam a qualidade de vida do sistema?
+
+
+### Rate Limiting
+
+Protege o sistema baseado no que ele foi projetado para suportar. X requisições por ms/min/hora.
+
+Barra requisições até atingir limite.
+
+
+- Tem que saber o limite que o sistema aguenta.
+- Preferencia programa por tipo de cliente.
+    - Tem sistemas que tem mais preferencia que outros para utilizar um servidor.
+
+
+### Circuit Breaker
+
+Protege o sistema fazendo com que as requisições feitas para ele sejam negadas, eg:. erro 500.
+
+- Sua casa tem um disjuntor que ao dar um sobrecarga, o disjuntor abreo circuito.
+
+- **Circuito Fechado** = Sistema falando com outro sistema.
+- Quando essa comunicação fica lenta, abre o circuito.
+- **Circuito aberto** = Requisições não chegam ao sistema. Erro instantaneo  no client.
+- O beneficio disso é que a requisição não fica dependurada no cliente.
+
+- **Meio aberto** : Permite uma quantidade limitada de requisições para ver se o sistema tem condições de voltar ao ar integralmente.
+
+- Pode ser implementado diretamente no código da aplicação.
+    - Existem também recursos mais modernos, Service mesh por exemplo. Que aplica circuit-breaker direto na rede.
+
+### API Gateway
+
+Centraliza todas as requisições aplicando regras / políticas para para aceitar ou recusar requisições.
+
+Respeitando as necessidades individuais de cada sistema.
+
+- Garante que requisições "inapropriads" cheguem até o sistema. Ex: Usuário não autenticado.
+- Tipos de API gateway
+    - Kong
+    - Kubernetes
+- Implmenta políticas de
+    - Rate Limiting
+    - Health Check
+    - Etc...
+
+### Service Mesh
+
+Malha de serviços.
+
+- Cruamente falando, ela controla tráfego da rede.
+- Permite colocar proxies do lado de cada sistema nosso.
+    - Quando sistema A quer falar com sistema B, ele acaba mandando transparente a requisição pro "sidecar" que é o proxy do serviço.
+        - Assim da pra saber tudo que ta passando pra rede, quem passa informação para quem, quando, quanto.
+- Ajuda a entender o comportamento da minha rede.
+- Evita implementações de proteção pelo próprio sistema. possibilitando trabalhar de forma automatica com:
+    - Circuit breaker
+    - Rate limit
+    - Retry
+    - Timeout
+    - Fault Injection
+    - Etc...
+- Quem é que vai saber de verdade os valores das configurações? Não é o programador em tempo de desenvolvimento.
+- mTLS - Criptografa as requisições.
+    - Quando um sistema quer falar com o outro, criptografa a conexão.
+
+### Comunicação Assíncrona
+
+- Evita perda de dados
+- Com menos poder computacional o serviço consegue dar conta de mais requisições.
+- Imagina um sistema de pagamento que ta rebootando e quando alguém ta pagando, o sistema cai e da uma mensagem: Erro, o sistema está fora, tente pagar depois.
+    - O pagamento se perdeu.
+- Não há perda de dados no envio de uma transação se o server estiver fora.
+- Servidor, mesmo fora do ar, consegue processar uma requisição.
+- Os dados são enviados para o message broker/sistema de stram, eg:. Kafka.
+- Entenda com profundidade seu message broker.
