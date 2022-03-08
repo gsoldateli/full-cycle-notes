@@ -663,3 +663,24 @@ Para cada chamada, é rodado um pequeno algorítimo para gerar um pequeno ruído
 
 1s, 2.3s, 4.1s, 16.05s
 
+### Garantias de entrega com Kafka / Message Broker
+
+
+![Message broker](https://i.imgur.com/vo57JAd.png)
+
+Como eu tenho a certeza de que a informação que to mandando está chegando mesmo no message broker?
+
+Níveis de garantia:
+
+- None / Fire & Forget (Ack 0)
+    - Alta velocidade podendo perder as mensagens.
+    - Imagina as posições do Uber, vai fazer diferença perder algumas? Provavelmente não, então fire & forget é uma boa pois ganha na velocidade.
+- Leader (Ack 1)
+    - Moderado, apenas o lider confirma.
+    - Imagina que ta mandando 1 real para o broker, o minimo que tu vai querer saber é se alguém lá recebeu né? Dai o lider da o retorno dizendo que recebeu.
+- ALL (Ack - 1 )
+    - Lento e seguro, todos brokers recebem a mensagem.
+    - É útil quando você manda uma mensagem **Ack 1** e por algum motivo o leader cai depois de ter dito que recebeu... Dai você fica pensando que ta tudo certo, mas não está. Com **Ack-1** replica a mensagem entre os brokers.
+    - Antes do leader avisar que recebeu, ele avisa que ele recebeu e também os demais brokers Followers.
+
+Moral da história: Conheça o broker de mensagens que você está trabalhando bem o suficiente para saber os níveis de garantia que ele pode lhe proporcionar.
