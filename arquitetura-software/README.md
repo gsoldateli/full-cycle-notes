@@ -684,3 +684,21 @@ Níveis de garantia:
     - Antes do leader avisar que recebeu, ele avisa que ele recebeu e também os demais brokers Followers.
 
 Moral da história: Conheça o broker de mensagens que você está trabalhando bem o suficiente para saber os níveis de garantia que ele pode lhe proporcionar.
+
+### Situações complexas
+
+Provocação para pensar: Como eu consigo ter a resiliencia da resiliencia? 
+
+- O que acontece se o message broker (RabbitMQ / Kafka / SQS) cair?
+    - Ia deixar perder mensagem?
+    - O sistema vai ficar fora do ar?
+
+- Single point of failure
+    - Exemplo: 
+        - Se toda resiliencia do meu app está no apache kafka, ele será o Single Point of Failure.
+    - Como faço pro sistema continuar operando mesmo com o Kafka fora do ar?
+- A cada 9 a mais nos 99.99% de resiliencia custa mais caro.
+    - Qual a probabilidade da AWS cair numa região inteira?
+        - Existe, e trabalhar com multiplas regiões é gratuito, então não tem motivo para ficar sem fallback multi regional.
+    - Se a AWS falir, consigo migrar rapidamente para Azure?
+- É responsabilidade de um CEO, CTO, CIO definir o nível de resiliencia operar. Eles que tem que saber o risco que estão operando o negócio.
