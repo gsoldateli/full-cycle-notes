@@ -631,3 +631,35 @@ Malha de serviços.
 - Servidor, mesmo fora do ar, consegue processar uma requisição.
 - Os dados são enviados para o message broker/sistema de stram, eg:. Kafka.
 - Entenda com profundidade seu message broker.
+
+
+### Garantias de entrega com Retry
+
+Tendo o sistema de filas em mente, as garantias de retry são responsáveis por definir a estratégia de quando uma nova tentativa será feita.
+
+**Linear (Sem Backoff)**
+
+![Linear](https://i.imgur.com/K6APc6o.png)
+
+Tenta linearmente a cada X segundos, ela não funciona, pois se 10 sistemas fizerem requisição para um sistema especifico, e ele arregar, todas irão fazer uma nova requisição daqui a X segundos ao mesmo tempo novamente.
+
+**Exponential Backoff**
+
+![Exponential](https://i.imgur.com/pDF26h9.png)
+
+A linha rosa = sem nenhum backoff, atente para quantidade de chamadas até conseguir responder.
+
+A linha azul é Exponential Backoff, que calcula a próxima tentativa exponencialmente assim:
+
+> 1s, 2s, 4s, 16s, 32s, 64s, 128s, 256s... n²
+
+Mesmo que seja melhor que linear backoff, ainda não é uma melhora expressiva.
+
+**Exponential Backoff - Jitter**
+
+![Exponential w Jitter](https://i.imgur.com/7tMc3TL.png)
+
+Para cada chamada, é rodado um pequeno algorítimo para gerar um pequeno ruído que randomiza a próxima chamada com um modificador de tempo.
+
+1s, 2.3s, 4.1s, 16.05s
+
