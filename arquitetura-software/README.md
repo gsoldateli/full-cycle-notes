@@ -485,3 +485,37 @@ Eu pago uma taxa de transferência do servidor mais próximo do meu usuário.
     - Possibilitar aumentar/diminuir o throughput adicionando / removendo capacidade computacional.
 
 
+### Escalando software - Descentralização.
+
+Para escalar um software descentralizadamente, você tem que ter alguns cuidados.
+
+- Não armazenar estado no servidor da aplicação.
+- Pensar que as máquinas são descartáveis. Elas podem ser criadas e derrubadas rapidamente.
+- Disco tem que ser efêmero.
+- Servidor de aplicação vs. Servidor de assets
+- Cache centralizado em um servidor específico.
+- Sessões centralizadas.
+- Upload / Gravação de arquivos.
+
+
+### Escala banco de dados
+
+É um tema bem cabeludo.
+
+Geralmente requer ajuda de um arquiteto tecnológico.
+
+Como escalar?
+
+- Aumentar recurso computacional.
+- Distribuindo responsabilidades (escrita vs leitura).
+- Shards de forma horizontal
+- Não tem mágica, tem que entender os tipos de banco de dados para escolher a melhor opção para cada situação.
+- Serverless 
+    - Deixar o Cloud Provider se virar.
+- Otimização de queries e índices.
+    - Tenha sistema de APM = Application Performance Monitor.
+    - Trabalhar com indices de forma correta.
+    - APM nas queries.
+    - Explain nas queries.
+    - Utilizar pattern CQRS (Command Query Responsability Segregation) - Separar leitura / escrita.
+
