@@ -519,3 +519,17 @@ Como escalar?
     - Explain nas queries.
     - Utilizar pattern CQRS (Command Query Responsability Segregation) - Separar leitura / escrita.
 
+### Proxy Reverso
+
+Proxy em inglês = Procurador, alguém que fala em seu nome.
+
+Proxy reverso é um servidor que fica na frente dos servidores web e encaminha solicitações do cliente (eg.: Browser) para esses estes.
+
+![Proxy Reverso](https://i.imgur.com/Yncg1fE.png)
+
+Soluções populares de Proxy Reverso
+
+- Nginx
+- HAProxy (HA = High Availability)
+- Traefik
+
