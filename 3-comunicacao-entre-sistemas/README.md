@@ -37,3 +37,28 @@ No facebook isso também acontece, se trocar seu nome, e depois ir num grupo, va
 
 
 
+## REST
+
+- Raros os devs que sabem que o REST é mais do que verbos e status codes organizados.
+- REST = **RE**presentational **S**tate of **T**ransfer
+- Surgiu em 200 por Roy Fielding em uma dissertação de doutorado.
+- Simplicidade.
+- Stateless, cada requisição é independente.
+- Cacheável
+
+
+### REST: Níveis de maturidade (Richardson Maturity Model
+
+- Nível 0: The swamp of POX. (RPC)
+- Nível 1: Utilização de resources
+    - ![Resources](https://i.imgur.com/gcMy4qi.png)
+- Nível 2: Verbos HTTP
+    - Quando se utiliza o verbo correto para a operação correta.
+        - GET: Recuperar informação
+        - POST: Inserir
+        - PUT: Alterar
+        - DELETE: Remover
+- Nível 3: HATEOAS - Hypermedia as the Engine Application State
+    - A sua requisição é processada, e além do retorno normal, também trás a lista de operações que você pode fazer depois com base na operação executou.
+        - ![HATEOAS](https://i.imgur.com/zaAPbVF.png)
+    - Nesse estado a API ajuda os outros desenvolvedores a tirarem o melhor dela, é a base da internet, documentos linkando outros documentos.
