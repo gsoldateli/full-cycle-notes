@@ -62,3 +62,93 @@ No facebook isso também acontece, se trocar seu nome, e depois ir num grupo, va
     - A sua requisição é processada, e além do retorno normal, também trás a lista de operações que você pode fazer depois com base na operação executou.
         - ![HATEOAS](https://i.imgur.com/zaAPbVF.png)
     - Nesse estado a API ajuda os outros desenvolvedores a tirarem o melhor dela, é a base da internet, documentos linkando outros documentos.
+
+### Method e Content Negotiation
+
+**REST: Como é uma boa API?**
+
+- #1 - Utiliza URIs unicas para serviços e itens que expostos a estes serviços.
+- #2 - Utiliza todos os VERBOS HTTP para realizar as operações em seus recursos, incluindo caching.
+- #3 - Provê links relacionais para os recursos, exemplificando o que pode ser feito.
+
+Maioria esmagadora das APIs vão até o #2.
+
+**REST: HAL, Collection+JSON e Siren**
+
+Hoje em dia usamos muito o JSON, antigamente XML era amplamente utilizado.
+
+XML nos dava a capacidade de criar um documento e adicionar atributos a ele.
+
+Com JSON não tem nenhuma padronização, então se a documentação não for muito boa, vai ficar bem dificil de trabalhar com a API.
+
+Por conta disso que existem 3 padrões para criar uma API rest decente.
+
+- HAL: Hypermedia Application Language
+    - ![Exemplo HAL](https://i.imgur.com/uR6SJsy.png)
+    - *_links.self* = O recurso que to acessando nesse momento. 
+    - *_embedded* = Relacionamento com outros recursos *family* por exemplo.
+- Collection+JSON
+
+- Siren
+
+
+**REST: HTTP *Method* Negotiation**
+
+O HTTP possui outro método/verbo: **OPTIONS**. Que permite sabermos quais métodos HTTP estão disponíveis em um endpoint específico.
+
+Requisição:
+
+```
+OPTIONS /api/product HTTP/1.1
+HOST: meuserver.com.br
+``` 
+
+Exemplo de resposta:
+
+```
+HTTP/1.1 200 OK
+Allow: GET, POST
+``` 
+
+Caso envie a requisição com um método HTTP que não está listado acima (PUT por exemplo), a resposta seria:
+
+```
+HTTP/1.1 405 Not Allowed
+Allow: GET, POST
+``` 
+
+**REST: HTTP *Content* Negotiation**
+
+**Accept negotiation:** Quando o cliente envia a requisição, ele pode pedir o tipo do retorno com o header **Accept:**
+
+Requisição do cliente:
+
+```
+GET /product
+Accept: application/json
+```
+
+Se o servidor não dar suporte a resposta em JSON e está bem configurado, deverá responder:
+
+```
+HTTP/1.1 406 Not Acceptable
+```
+
+
+**Content-Type negotiation:** É para dizer pro servidor que você ta postando um payload em um determinado formato. JSON por exemplo.
+
+```
+POST /product HTTP/1.1
+Accept: application/json <--- To dizendo que quero resposta em JSON
+Content-Type: application/json <-- To dizendo que o meu payload abaixo é no formato JSON
+
+{
+    "name":"produto 1"
+}
+```
+
+Se o servidor não suportar processar inputs no formato JSON, vai retornar:
+
+```
+HTTP/1.1 415 Unsuported Media Type
+```
